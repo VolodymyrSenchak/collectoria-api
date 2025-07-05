@@ -1,1 +1,1 @@
-# collectoria-api
+# Collectoria API
