@@ -1,6 +1,6 @@
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://collectoria.vercel.app"
+  "https://collectoria-app.vercel.app/"
 ];
 
 
