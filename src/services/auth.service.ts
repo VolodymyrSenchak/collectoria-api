@@ -7,6 +7,11 @@ export interface LoginCommand {
   password: string;
 }
 
+export interface RegisterCommand extends LoginCommand {
+  data: any;
+  emailRedirectTo?: string;
+}
+
 export interface PasswordChangeCommand {
   email: string;
   password: string;
@@ -26,10 +31,14 @@ export interface AuthResult {
 export class AuthService {
   private readonly db = getSupabaseClient();
 
-  async register(command: LoginCommand): Promise<Result<AuthResult>> {
+  async register(command: RegisterCommand): Promise<Result<AuthResult>> {
     const { data, error } = await this.db.auth.signUp({
       email: command.email,
       password: command.password,
+      options: {
+        emailRedirectTo: command.emailRedirectTo,
+        data: command.data
+      }
     });
 
     return error ? failure(error) : success(data);

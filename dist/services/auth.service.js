@@ -21,6 +21,10 @@ class AuthService {
             const { data, error } = yield this.db.auth.signUp({
                 email: command.email,
                 password: command.password,
+                options: {
+                    emailRedirectTo: command.emailRedirectTo,
+                    data: command.data
+                }
             });
             return error ? (0, models_1.failure)(error) : (0, models_1.success)(data);
         });
