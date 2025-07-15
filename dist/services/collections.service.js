@@ -47,11 +47,11 @@ class CollectionsService {
     }
     saveCollectionSet(collectionSet) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { error, data } = yield this.db
+            const { error, data: [newSet] } = yield this.db
                 .from(this.collectionSetsTable)
-                .upsert(collectionSet);
-            const newCollectionSet = data;
-            return (0, models_1.fromDbResult)(newCollectionSet.id, error);
+                .upsert(collectionSet)
+                .select();
+            return (0, models_1.fromDbResult)(newSet.id, error);
         });
     }
     removeCollectionSet(userId, collectionId, collectionSetId) {
@@ -67,10 +67,10 @@ class CollectionsService {
     }
     saveCollection(collection) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { error, data } = yield this.db
+            const { error, data: [newCollection] } = yield this.db
                 .from(this.collectionsTable)
-                .upsert(collection);
-            const newCollection = data;
+                .upsert(collection)
+                .select();
             return (0, models_1.fromDbResult)(newCollection.id, error);
         });
     }
