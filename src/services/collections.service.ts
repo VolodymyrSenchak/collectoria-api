@@ -35,12 +35,12 @@ export class CollectionsService {
     return fromDbResult<CollectionSetResponse[]>(data, error);
   }
 
-  async saveCollectionSet(collectionSet: SaveCollectionSetRequest): Promise<Result<boolean>> {
-    const { error } = await this.db
+  async saveCollectionSet(collectionSet: SaveCollectionSetRequest): Promise<Result<string>> {
+    const { error, data } = await this.db
       .from(this.collectionSetsTable)
       .upsert(collectionSet);
-
-    return fromDbResult(true, error);
+    const newCollectionSet = data as CollectionSetResponse;
+    return fromDbResult(newCollectionSet.id, error);
   }
 
   async removeCollectionSet(userId: string, collectionId: string, collectionSetId: string): Promise<Result<boolean>> {
@@ -54,12 +54,12 @@ export class CollectionsService {
     return fromDbResult(true, error);
   }
 
-  async saveCollection(collection: SaveCollectionRequest): Promise<Result<boolean>> {
-    const { error } = await this.db
+  async saveCollection(collection: SaveCollectionRequest): Promise<Result<string>> {
+    const { error, data } = await this.db
       .from(this.collectionsTable)
-      .upsert(collection);
-
-    return fromDbResult(true, error);
+      .upsert<SaveCollectionRequest>(collection);
+    const newCollection = data as CollectionResponse;
+    return fromDbResult(newCollection.id, error);
   }
 
   async removeCollection(userId: string, collectionId: string): Promise<Result<boolean>> {
