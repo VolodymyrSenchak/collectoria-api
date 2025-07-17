@@ -1,6 +1,6 @@
 import {getSupabaseClient} from "../utils/supabaseDb";
 import {fromDbResult, Result} from "../models";
-import { CollectionResponse, SaveCollectionRequest, CollectionSetResponse, SaveCollectionSetRequest } from "../models/collections";
+import { CollectionResponse, SaveCollectionRequest, CollectionSet } from "../models/collections";
 
 export class CollectionsService {
   private readonly db = getSupabaseClient();
@@ -26,21 +26,21 @@ export class CollectionsService {
     return fromDbResult<CollectionResponse>(data[0], error);
   }
 
-  async getCollectionSets(collectionId: string, userId: string): Promise<Result<CollectionSetResponse[]>> {
+  async getCollectionSets(collectionId: string, userId: string): Promise<Result<CollectionSet[]>> {
     const { data, error } = await this.db
       .from(this.collectionSetsTable)
       .select()
       .eq('userId', userId).eq('collectionId', collectionId);
 
-    return fromDbResult<CollectionSetResponse[]>(data, error);
+    return fromDbResult<CollectionSet[]>(data, error);
   }
 
-  async saveCollectionSet(collectionSet: SaveCollectionSetRequest): Promise<Result<string>> {
+  async saveCollectionSet(collectionSet: CollectionSet): Promise<Result<string>> {
     const { error, data: [newSet] } = await this.db
       .from(this.collectionSetsTable)
       .upsert(collectionSet)
       .select();
-    return fromDbResult((newSet as CollectionSetResponse).id, error);
+    return fromDbResult((newSet as CollectionSet).id, error);
   }
 
   async removeCollectionSet(userId: string, collectionId: string, collectionSetId: string): Promise<Result<boolean>> {

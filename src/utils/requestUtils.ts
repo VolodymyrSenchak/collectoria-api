@@ -34,7 +34,7 @@ export function setResResult<T>(
   return res;
 }
 
-function getStatusCode(errorStatus: ErrorStatus): number {
+export function getStatusCode(errorStatus: ErrorStatus): number {
   switch (errorStatus) {
     case "unauthorized": return 401;
     case "forbidden": return 403;

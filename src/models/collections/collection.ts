@@ -11,17 +11,10 @@ export interface CollectionResponse extends CollectionBase {
   id: string;
 }
 
-export interface CollectionSetBase {
+export interface CollectionSet {
   collectionId: string;
-  name: string;
-  description?: string;
-}
-
-export interface SaveCollectionSetRequest extends CollectionSetBase {
   userId: string;
-}
-
-export interface CollectionSetResponse extends CollectionSetBase {
-  id: string;
+  payload: string;
+  id?: string;
 }
 

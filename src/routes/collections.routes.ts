@@ -1,7 +1,7 @@
 import {Router} from "express";
 import serviceFactory from "../services/serviceFactory";
 import {validateToken} from "../middlewares/validateToken";
-import {getUserId, setResResult} from "../utils/requestUtils";
+import {getStatusCode, getUserId, setResResult} from "../utils/requestUtils";
 import {CollectionsService} from "../services/collections.service";
 
 export const useCollectionsRoutes = () => {
@@ -35,7 +35,24 @@ export const useCollectionsRoutes = () => {
   });
 
   router.post("/:id/sets", validateToken, async (req, res) => {
-    const result = await collectionsService().saveCollectionSet({ ...req.body, userId: getUserId(req) });
+    const userId = getUserId(req);
+    const collectionId = req.params.id;
+    const { id, ...payload } = req.body;
+    const collectionService = collectionsService();
+    const collectionResponse = await collectionService.getCollection(collectionId, userId);
+
+    if (!collectionResponse.isSuccess || !collectionResponse.result) {
+      res.status(getStatusCode('bad-request')).json('Collection not found');
+      return;
+    }
+
+    const result = await collectionService.saveCollectionSet({
+      userId,
+      collectionId,
+      id,
+      payload,
+    });
+
     setResResult(res, result);
   });
 

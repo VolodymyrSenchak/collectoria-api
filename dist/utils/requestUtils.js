@@ -4,6 +4,7 @@ exports.setReqContext = setReqContext;
 exports.getReqContext = getReqContext;
 exports.getUserId = getUserId;
 exports.setResResult = setResResult;
+exports.getStatusCode = getStatusCode;
 function setReqContext(req, contextParts) {
     req.context = Object.assign(Object.assign({}, req.context), contextParts);
 }
