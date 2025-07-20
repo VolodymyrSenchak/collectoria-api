@@ -7,6 +7,10 @@ export interface LoginCommand {
   password: string;
 }
 
+export interface GoogleLoginCommand {
+  credential: string;
+}
+
 export interface RegisterCommand extends LoginCommand {
   data: any;
   emailRedirectTo?: string;
@@ -48,6 +52,15 @@ export class AuthService {
     const { data, error } = await this.db.auth.signInWithPassword({
       email: command.email,
       password: command.password,
+    });
+
+    return error ? failure(error) : success(data);
+  }
+
+  async loginWithGoogle(command: GoogleLoginCommand): Promise<Result<AuthResult>> {
+    const { data, error } = await this.db.auth.signInWithIdToken({
+      provider: 'google',
+      token: command.credential
     });
 
     return error ? failure(error) : success(data);

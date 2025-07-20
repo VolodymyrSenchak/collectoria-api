@@ -25,6 +25,10 @@ const useAuthRoutes = () => {
         const result = yield authSrv().login(req.body);
         (0, requestUtils_1.setResResult)(res, result, null, 401);
     }));
+    router.post("/login/auth/google", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        const result = yield authSrv().loginWithGoogle(req.body);
+        (0, requestUtils_1.setResResult)(res, result, null, 401);
+    }));
     router.post("/refreshToken", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const { refreshToken } = req.body;
         const result = yield authSrv().refreshToken(refreshToken);

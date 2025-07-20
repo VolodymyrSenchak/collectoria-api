@@ -13,6 +13,11 @@ export const useAuthRoutes = () => {
     setResResult(res, result, null, 401);
   });
 
+  router.post("/login/auth/google", async (req, res) => {
+    const result = await authSrv().loginWithGoogle(req.body);
+    setResResult(res, result, null, 401);
+  });
+
   router.post("/refreshToken", async (req, res) => {
     const { refreshToken } = req.body;
     const result = await authSrv().refreshToken(refreshToken);
