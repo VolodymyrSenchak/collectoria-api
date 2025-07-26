@@ -1,36 +1,14 @@
 import {getSupabaseClient} from "../utils/supabaseDb";
 import {failure, Result, success} from "../models";
 import {Session, User} from "@supabase/supabase-js";
-
-export interface LoginCommand {
-  email: string;
-  password: string;
-}
-
-export interface GoogleLoginCommand {
-  credential: string;
-}
-
-export interface RegisterCommand extends LoginCommand {
-  data: any;
-  emailRedirectTo?: string;
-}
-
-export interface PasswordChangeCommand {
-  email: string;
-  password: string;
-  token: string;
-}
-
-export interface PasswordResetCommand {
-  email: string;
-  redirectTo: string;
-}
-
-export interface AuthResult {
-  user: User;
-  session: Session;
-}
+import {
+  GoogleLoginCommand,
+  LoginCommand,
+  RegisterCommand,
+  AuthResult,
+  PasswordResetCommand,
+  PasswordChangeCommand
+} from "../models/auth";
 
 export class AuthService {
   private readonly db = getSupabaseClient();
@@ -87,6 +65,7 @@ export class AuthService {
 
   async changePassword(command: PasswordChangeCommand): Promise<Result<{}>> {
     const { error, data } = await this.db.auth.updateUser({
+      email: command.email,
       password: command.password
     });
 

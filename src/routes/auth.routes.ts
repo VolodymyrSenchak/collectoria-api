@@ -29,19 +29,22 @@ export const useAuthRoutes = () => {
     setResResult(res, result);
   });
 
-  router.get("/userDetails", validateToken, (req, res) => {
-    const user = getReqContext(req).user;
-    res.status(200).json(user);
-  });
-
   router.post("/resetPassword", async (req, res) => {
     const result = await authSrv().resetPassword(req.body);
     setResResult(res, result);
   });
 
+  // Authenticated routes
+
   router.get("/changePassword", validateToken, async (req, res) => {
-    const result = await authSrv().changePassword(req.body);
+    const user = getReqContext(req).user;
+    const result = await authSrv().changePassword({ email: user.email, password: req.body.password });
     setResResult(res, result);
+  });
+
+  router.get("/userDetails", validateToken, (req, res) => {
+    const user = getReqContext(req).user;
+    res.status(200).json(user);
   });
 
   return router;

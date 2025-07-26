@@ -70,6 +70,7 @@ class AuthService {
     changePassword(command) {
         return __awaiter(this, void 0, void 0, function* () {
             const { error, data } = yield this.db.auth.updateUser({
+                email: command.email,
                 password: command.password
             });
             return error ? (0, models_1.failure)(error) : (0, models_1.success)(data);

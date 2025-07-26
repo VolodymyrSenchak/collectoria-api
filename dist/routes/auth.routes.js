@@ -38,18 +38,20 @@ const useAuthRoutes = () => {
         const result = yield authSrv().register(req.body);
         (0, requestUtils_1.setResResult)(res, result);
     }));
-    router.get("/userDetails", validateToken_1.validateToken, (req, res) => {
-        const user = (0, requestUtils_1.getReqContext)(req).user;
-        res.status(200).json(user);
-    });
     router.post("/resetPassword", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const result = yield authSrv().resetPassword(req.body);
         (0, requestUtils_1.setResResult)(res, result);
     }));
+    // Authenticated routes
     router.get("/changePassword", validateToken_1.validateToken, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-        const result = yield authSrv().changePassword(req.body);
+        const user = (0, requestUtils_1.getReqContext)(req).user;
+        const result = yield authSrv().changePassword({ email: user.email, password: req.body.password });
         (0, requestUtils_1.setResResult)(res, result);
     }));
+    router.get("/userDetails", validateToken_1.validateToken, (req, res) => {
+        const user = (0, requestUtils_1.getReqContext)(req).user;
+        res.status(200).json(user);
+    });
     return router;
 };
 exports.useAuthRoutes = useAuthRoutes;
