@@ -36,7 +36,7 @@ export const useAuthRoutes = () => {
 
   // Authenticated routes
 
-  router.get("/changePassword", validateToken, async (req, res) => {
+  router.post("/changePassword", validateToken, async (req, res) => {
     const user = getReqContext(req).user;
     const result = await authSrv().changePassword({ email: user.email, password: req.body.password });
     setResResult(res, result);
