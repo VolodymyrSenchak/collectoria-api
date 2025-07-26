@@ -1,7 +1,7 @@
 import {Router} from "express";
 import serviceFactory from "../services/serviceFactory";
 import {AuthService} from "../services/auth.service";
-import {getReqContext, setResResult} from "../utils/requestUtils";
+import {getReqContext, getUserId, setResResult} from "../utils/requestUtils";
 import {validateToken} from "../middlewares/validateToken";
 
 export const useAuthRoutes = () => {
@@ -37,8 +37,8 @@ export const useAuthRoutes = () => {
   // Authenticated routes
 
   router.post("/changePassword", validateToken, async (req, res) => {
-    const user = getReqContext(req).user;
-    const result = await authSrv().changePassword({ email: user.email, password: req.body.password });
+    const userId = getUserId(req);
+    const result = await authSrv().changePassword({ userId, password: req.body.password });
     setResResult(res, result);
   });
 

@@ -4,10 +4,10 @@ exports.getSupabaseClient = getSupabaseClient;
 const supabase_js_1 = require("@supabase/supabase-js");
 function getSupabaseClient() {
     const supabaseUrl = process.env.SUPABASE_URL;
-    const supabaseAnonKey = process.env.SUPABASE_ANON_KEY;
-    if (!supabaseUrl || !supabaseAnonKey) {
-        throw new Error("Supabase URL or Anon Key is not defined in environment variables.");
+    const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+    if (!supabaseUrl || !supabaseServiceRoleKey) {
+        throw new Error("Supabase URL or Service role is not defined in environment variables.");
     }
-    return (0, supabase_js_1.createClient)(supabaseUrl, supabaseAnonKey);
+    return (0, supabase_js_1.createClient)(supabaseUrl, supabaseServiceRoleKey);
 }
 //# sourceMappingURL=supabaseDb.js.map

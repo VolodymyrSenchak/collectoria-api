@@ -44,8 +44,8 @@ const useAuthRoutes = () => {
     }));
     // Authenticated routes
     router.post("/changePassword", validateToken_1.validateToken, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-        const user = (0, requestUtils_1.getReqContext)(req).user;
-        const result = yield authSrv().changePassword({ email: user.email, password: req.body.password });
+        const userId = (0, requestUtils_1.getUserId)(req);
+        const result = yield authSrv().changePassword({ userId, password: req.body.password });
         (0, requestUtils_1.setResResult)(res, result);
     }));
     router.get("/userDetails", validateToken_1.validateToken, (req, res) => {

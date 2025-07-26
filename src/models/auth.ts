@@ -15,7 +15,7 @@ export interface RegisterCommand extends LoginCommand {
 }
 
 export interface PasswordChangeCommand {
-  email: string;
+  userId: string;
   password: string;
 }
 

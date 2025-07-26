@@ -64,8 +64,7 @@ export class AuthService {
   }
 
   async changePassword(command: PasswordChangeCommand): Promise<Result<{}>> {
-    const { error, data } = await this.db.auth.updateUser({
-      email: command.email,
+    const { error, data } = await this.db.auth.admin.updateUserById(command.userId, {
       password: command.password
     });
 
