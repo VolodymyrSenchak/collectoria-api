@@ -1,2 +1,3 @@
-export * from './brickLinkSet.model';
-export * from './brickLinkSetPrice.model';
+export * from './integrationSet.model';
+export * from './integrationSetPrice.model';
+export * from './integrationSetCategory.model';

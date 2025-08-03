@@ -18,5 +18,10 @@ export const useSetsIntegrationRoutes = () => {
     setResResult(res, result);
   });
 
+  router.get("/categories", validateToken, async (req, res) => {
+    const result = await setsIntegrationService().getCategories();
+    setResResult(res, result);
+  });
+
   return router;
 };

@@ -14,6 +14,7 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-__exportStar(require("./brickLinkSet.model"), exports);
-__exportStar(require("./brickLinkSetPrice.model"), exports);
+__exportStar(require("./integrationSet.model"), exports);
+__exportStar(require("./integrationSetPrice.model"), exports);
+__exportStar(require("./integrationSetCategory.model"), exports);
 //# sourceMappingURL=index.js.map

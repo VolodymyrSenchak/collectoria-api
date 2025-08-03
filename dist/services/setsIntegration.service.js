@@ -25,6 +25,11 @@ class SetsIntegrationService {
             return yield this.brickLinkClient.getSetPricesByCode(code);
         });
     }
+    getCategories() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield this.brickLinkClient.getCategories();
+        });
+    }
 }
 exports.SetsIntegrationService = SetsIntegrationService;
 //# sourceMappingURL=setsIntegration.service.js.map

@@ -29,6 +29,10 @@ const useSetsIntegrationRoutes = () => {
         const result = yield setsIntegrationService().getSetPricesByCode(req.params.id);
         (0, requestUtils_1.setResResult)(res, result);
     }));
+    router.get("/categories", validateToken_1.validateToken, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        const result = yield setsIntegrationService().getCategories();
+        (0, requestUtils_1.setResResult)(res, result);
+    }));
     return router;
 };
 exports.useSetsIntegrationRoutes = useSetsIntegrationRoutes;

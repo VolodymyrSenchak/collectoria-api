@@ -1,17 +1,21 @@
 import { IBrickLinkSettings } from "../settings";
 import {generateOAuthHeader} from "../utils/authUtils";
-import {IBrickLinkSet, IBrickLinkSetPrice} from "../models/integration";
+import {IIntegrationSet, IIntegrationSetPrice, IIntegrationSetCategory} from "../models/integration";
 import {failure, Result, success} from "../models";
 
 export class BrickLinkClientService {
   constructor(private readonly settings: IBrickLinkSettings) {}
 
-  async getSetByCode(setCode: string): Promise<Result<IBrickLinkSet>> {
-    return this.executeRequest<IBrickLinkSet>('GET', `/items/set/${setCode}`);
+  async getSetByCode(setCode: string): Promise<Result<IIntegrationSet>> {
+    return this.executeRequest<IIntegrationSet>('GET', `/items/set/${setCode}`);
   }
 
-  async getSetPricesByCode(setCode: string): Promise<Result<IBrickLinkSetPrice>> {
-    return this.executeRequest<IBrickLinkSetPrice>('GET', `/items/set/${setCode}/price`);
+  async getSetPricesByCode(setCode: string): Promise<Result<IIntegrationSetPrice>> {
+    return this.executeRequest<IIntegrationSetPrice>('GET', `/items/set/${setCode}/price`);
+  }
+
+  async getCategories(): Promise<Result<IIntegrationSetCategory>> {
+    return this.executeRequest<IIntegrationSetPrice>('GET', `/categories`);
   }
 
   private async executeRequest<T>(method: string, relativeUrl: string): Promise<Result<T>> {

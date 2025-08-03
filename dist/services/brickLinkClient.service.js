@@ -26,6 +26,11 @@ class BrickLinkClientService {
             return this.executeRequest('GET', `/items/set/${setCode}/price`);
         });
     }
+    getCategories() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return this.executeRequest('GET', `/categories`);
+        });
+    }
     executeRequest(method, relativeUrl) {
         return __awaiter(this, void 0, void 0, function* () {
             const url = `${this.settings.apiUrl}${relativeUrl}`;
