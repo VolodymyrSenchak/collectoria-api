@@ -15,5 +15,12 @@ else {
 }
 exports.ENV_VARIABLES = {
     port: process.env.PORT ? parseInt(process.env.PORT, 10) : 8080,
+    brickLink: {
+        apiUrl: 'https://api.bricklink.com/api/store/v1',
+        consumerKey: process.env.BRICKLINK_CONSUMER_KEY || "",
+        consumerSecret: process.env.BRICKLINK_CONSUMER_SECRET || "",
+        token: process.env.BRICKLINK_TOKEN || "",
+        tokenSecret: process.env.BRICKLINK_TOKEN_SECRET || "",
+    }
 };
 //# sourceMappingURL=envVariables.js.map
